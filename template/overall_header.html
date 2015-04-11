@@ -83,6 +83,8 @@
 
 <!-- INCLUDE additional_files.html -->
 
+<link href="/static/css/forums_fixes.css" rel="stylesheet">
+<link href="/static/css/colors.css" rel="stylesheet">
 <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
 	<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->
@@ -91,26 +93,63 @@
 
 <body id="phpbb" class="section-{SCRIPT_NAME} {S_CONTENT_DIRECTION}">
 	<a id="top" accesskey="t"></a>
-	<!-- INCLUDE overall_header_nav.html -->
-	<div class="jumbotron no-margin-bottom no-padding-bottom">
-		<div class="container text-center">
-			<div id="site-logo"><a href="{U_INDEX}" title="{L_INDEX}">{SITE_LOGO_IMG}</a></div>
-			<p>{SITE_DESCRIPTION}</p>
-			<!-- IF U_MCP or U_ACP -->
-				<div class="alert alert-warning" id="update-notification">A new version (<span class="version"></span>) is available: <a href="http://zoker.me/go/comboot-changelog" target="_blank">Changelog</a> | <a href="http://zoker.me/go/comboot-download" target="_blank">Download</a> (Don`t worry, this message is only visible to admins)</div>
-			<!-- ENDIF -->
-			<p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-fix navbar-inverse" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/"><img src="/static/img/drummer_logo.jpg"></a>
 		</div>
-	</div>
+		<div class="collapse navbar-collapse" id="main-menu">
+				<ul class="nav navbar-nav">
+                    <li ><a href="/read/">{L_FMREAD}</a></li>
+                    <!--<li ><a href="/market">{L_FMMARKET}</a></li>-->
+                    <li class="active"><a href="/forum/">{L_FMFORUM}</a></li>
+                    <li ><a href="/events/">{L_FMEVENTS}</a></li>
+				</ul>
+			<ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" method="get" id="search" action="" style="width: 300px">
+					<div class="input-group">
+						<input class="input-medium search form-control" maxlength="128" type="text" name="keywords" id="search_keywords" size="20" value="search" onclick="if (this.value == 'search') this.value = '';" onblur="if (this.value == '') this.value = 'search';" />
+						<div class="input-group-btn">
+							<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+						</div>
+					</div>
+				</form>
+                </li>
+				<li class="dropdown">
+                    <!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
+                    <button type="button" class="btn btn-primary btn-labeled navbar-btn dropdown-toggle" data-toggle="dropdown" style="height: 34px;">
+                        {S_USERNAME} <span class="caret"></span></button>
+               		    <ul class="dropdown-menu">
+                                    <!--<li><a href="/market/products/">{L_FMINVENTORY}</a></li>
+                                    <li><a href="/market/deals/deals">{L_FMDEALS}</a></li>
+                                    <li><a href="/market/deals/purchases">{L_FMPURCHASES}</a></li>-->
+                                    <li><a href="/profile/">{L_FMPROFILE}</a></li>
+                                    <!--<li><a href="/messages/inbox/">{L_FMMESSAGES}</a></li>-->
+                                    <li><a href="/accounts/logout/"><i class="glyphicon glyphicon-log-out"></i> {L_FMLOGOUT}</a></li>
+
+                        </ul>
+                        <!-- ELSE -->
+                        <button type="button" class="btn btn-primary btn-labeled navbar-btn dropdown-toggle" data-toggle="dropdown" ><span class="btn-label"><i class="glyphicon glyphicon-user"></i></span><span class="caret"></span></button>
+               		    <ul class="dropdown-menu">
+                            <li><a href="/accounts/register/"><i class="glyphicon glyphicon-check"></i> {L_FMREGISTER}</a></li>
+                            <li><a href="/accounts/login/"><i class="glyphicon glyphicon-log-in"></i> {L_FMLOGIN}</a></li>
+                        </ul>
+                        <!-- ENDIF -->
+
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
 	<a id="start_here"></a>
 	<div class="container" id="content-wrapper">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="btn-group btn-breadcrumb">
-					 <a href="{U_INDEX}" accesskey="h" class="btn btn-primary" title="{L_INDEX}"><i class="glyphicon glyphicon-home"></i></a> <!-- BEGIN navlinks --> <a href="{navlinks.U_VIEW_FORUM}" class="btn btn-primary">{navlinks.FORUM_NAME}</a><!-- END navlinks -->
-				</div>
-			</div>
-		</div>		
+		
 		<!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN and (U_MCP or U_ACP) -->
 			<div class="row">
 				<div class="col-md-12">
